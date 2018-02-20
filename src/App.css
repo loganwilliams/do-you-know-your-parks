@@ -57,8 +57,6 @@ body {
 }
 
 .choice {
-  /*margin-left: auto;*/
-  /*margin-right: auto;*/
   margin-top: 5px;
 }
 
@@ -70,6 +68,11 @@ button {
   border-radius: 5px;
   font-family: "Georgia", "Cambria", serif;
   cursor: pointer;
+  text-align: left;
+}
+
+button.third {
+  max-width: calc(100% - 100px);
 }
 
 button:hover {
@@ -78,9 +81,11 @@ button:hover {
 }
 
 .round {
+  width: 100px;
   position: absolute;
-  top: -0px;
-  right: 5px;
+  bottom: 1em;
+  right: 1em;
+  text-align: right;
 }
 
 .question {

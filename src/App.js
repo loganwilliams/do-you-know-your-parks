@@ -4,8 +4,12 @@ import { Map, TileLayer, Marker } from 'react-leaflet';
 
 class Choice extends Component {
   render() {
+    let className = "";
+    if (this.props.i === 2) {
+      className="third";
+    }
     return <div className="choice">
-      <button onClick={() => this.props.callback(this.props.label)}>{this.props.label}</button>
+      <button className={className} onClick={() => this.props.callback(this.props.label)}>{this.props.label}</button>
     </div>
   }
 }
@@ -377,7 +381,7 @@ class App extends Component {
             this.remainingChoices.fake.splice(choice, 1);
           }
 
-          choices.push(<Choice callback={this.choice.bind(this)} label={label} key={label} />);
+          choices.push(<Choice callback={this.choice.bind(this)} label={label} key={label} i={i}/>);
         }
 
         var intro;
@@ -388,7 +392,6 @@ class App extends Component {
           </p>
           <p>
             Do you know NYC's parks well enough to tell the real deal from a machine dream?
-          You have ten rounds.
           </p></div>;
         } else {
           intro = [];
@@ -398,9 +401,9 @@ class App extends Component {
           <div id="instructions">
             {intro}
             <div className="question">
-              <div className="round">{(this.state.round === 0 ? "Round " : "") + (this.state.round+1) + "/10"}</div>
               Which one is a real NYC park?
             </div>
+            <div className="round">{(this.state.round === 0 ? "Round " : "") + (this.state.round+1) + "/10"}</div>
           </div>
 
           <div id="choices">
