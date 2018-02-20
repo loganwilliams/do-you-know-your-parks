@@ -1,0 +1,104 @@
+body {
+  font-family: Georgia;
+}
+
+#background-map {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  position: absolute;
+  top: 0px;
+}
+
+.leaflet-container {
+  height: 100%;
+}
+
+#controls {
+  background-color: rgba(255,255,255,0.8);
+  width: 400px;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+  position: relative;
+  border-radius: 10px;
+}
+
+#controls.right {
+  background-color: rgba(240, 255, 224, 0.8);
+}
+
+#controls.wrong {
+  background-color: rgba(255, 224, 224, 0.8);
+}
+
+
+.leaflet-control-container {
+  display: none;
+}
+
+#choices {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.choice {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+}
+
+button {
+  background-color: #eeffe0;
+  color: black;
+  padding: 5px;
+  font-size: 1em;
+  border-radius: 5px;
+  font-family: Georgia
+}
+
+button:hover {
+  background-color: #a0e0a0;
+  color: black;
+}
+
+.round {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.question {
+  font-style: italic;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.intro {
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+#score {
+  font-size: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#score-intro, #score-outro {
+  text-align: center;
+}
+
+.park {
+  color: #005500;
+  text-shadow: 0px 0px 1px #005500;
+}
