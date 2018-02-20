@@ -425,6 +425,7 @@ class App extends Component {
               // url = "https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png"
               // url="https://api.mapbox.com/styles/v1/loganw/cjduri34y5gir2rq9ah0zan6h/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibG9nYW53IiwiYSI6ImNqNTFscTg3ZTA1M3Myd3A5ZnoxMXQ1eHkifQ.rD4GwekG5CArTiMkIuv-gA"
               url="https://api.mapbox.com/styles/v1/loganw/cjdv6gqfd3x642spkofc8cb86/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibG9nYW53IiwiYSI6IlQzWHJqc3cifQ.KY3j-syHXeYmI69JmLqGqQ"
+              // url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
             />
             {parkMarker}
           </Map>

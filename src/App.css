@@ -119,7 +119,7 @@ p {
 
 .park {
   color: #005500;
-  text-shadow: 0px 0px 1px #005500;
+  text-shadow: 0px 0px 1px rgba(0,50,0,0.3);
 }
 
 #next {
