@@ -294,13 +294,6 @@ class App extends Component {
         zoom: 14
       });
 
-      window.setTimeout(() => {
-        this.setState({
-          correct: this.state.correct + 1,
-          zoom: 12,
-          state: 'choice'})
-      }, 3000);
-
     } else {
       // they got it wrong
       this.setState({
@@ -310,14 +303,15 @@ class App extends Component {
         lon: this.correctAnswer.centroid[0],
         pick: label,
         zoom: 14
-      });
-
-      window.setTimeout(() => {
-        this.setState({
-          zoom: 12,
-          state: 'choice'})
-      }, 4000);
+      });        
     }
+  }
+
+  nextQuestion(correct) {
+    this.setState({
+      zoom: 12,
+      state: 'choice',
+      correct: this.state.correct + correct});
   }
 
   render() {
@@ -325,21 +319,23 @@ class App extends Component {
 
     // display special options for wrong/right
     if (this.state.state === 'wrong') {
-      controls = <div id="controls" className="wrong">
+      controls = <div id="controls" className="wrong" onClick={()=>this.nextQuestion(0)}>
         <div id="instructions">
           {"Oops.  " + this.state.pick + " is actually fake. "}
           <span className="park">{this.correctAnswer.label}</span>
           {" was a real park in " + this.correctAnswer.borough + "."}
         </div>
+        <div id="next">Next question.</div>
       </div>;
 
     } else if (this.state.state === 'right') {
-      controls = <div id="controls" className="right">
+      controls = <div id="controls" className="right" onClick={()=>this.nextQuestion(1)}>
         <div id="instructions">
           {"Yes! "}
           <span className="park">{this.correctAnswer.label}</span>
           {" is a park in " + this.correctAnswer.borough + "."}
         </div>
+        <div id="next">Next question.</div>
       </div>;
 
     } else {
@@ -356,7 +352,6 @@ class App extends Component {
         }
 
         controls = <div id="controls">
-          <div id="score-intro">You got...</div>
           <div id="score">{this.state.correct + "/10"}</div>
           <div id="score-outro">{evaluation}</div>
         </div>
@@ -387,16 +382,25 @@ class App extends Component {
 
         var intro;
         if (this.state.round === 0 && this.state.round < 10) {
-          intro = <div className="intro">New York City has a lot of parks. How well do you know them? Using a silly recurrent neural network, I've generated a bunch of fake park names. There are ten rounds, good luck!</div>;
+          intro = <div className="intro"><p>
+          New York City has over two thousand named parks.
+          Since it seems like it could use still use a few more, I trained an RNN to imagine names for some new public spaces.
+          </p>
+          <p>
+            Do you know NYC's parks well enough to tell the real deal from a machine dream?
+          You have ten rounds.
+          </p></div>;
         } else {
           intro = [];
         }
 
         controls = <div id="controls">
           <div id="instructions">
-            <div className="round">{(this.state.round+1) + "/10"}</div>
             {intro}
-            <div className="question">Which one is a real NYC park?</div>
+            <div className="question">
+              <div className="round">{(this.state.round === 0 ? "Round " : "") + (this.state.round+1) + "/10"}</div>
+              Which one is a real NYC park?
+            </div>
           </div>
 
           <div id="choices">
@@ -418,7 +422,9 @@ class App extends Component {
         <div id="background-map">
           <Map center={[this.state.lat, this.state.lon]} zoom={this.state.zoom} >
             <TileLayer
-              url="https://api.mapbox.com/styles/v1/loganw/cjduri34y5gir2rq9ah0zan6h/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibG9nYW53IiwiYSI6ImNqNTFscTg3ZTA1M3Myd3A5ZnoxMXQ1eHkifQ.rD4GwekG5CArTiMkIuv-gA"
+              // url = "https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png"
+              // url="https://api.mapbox.com/styles/v1/loganw/cjduri34y5gir2rq9ah0zan6h/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibG9nYW53IiwiYSI6ImNqNTFscTg3ZTA1M3Myd3A5ZnoxMXQ1eHkifQ.rD4GwekG5CArTiMkIuv-gA"
+              url="https://api.mapbox.com/styles/v1/loganw/cjdv6gqfd3x642spkofc8cb86/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibG9nYW53IiwiYSI6IlQzWHJqc3cifQ.KY3j-syHXeYmI69JmLqGqQ"
             />
             {parkMarker}
           </Map>
