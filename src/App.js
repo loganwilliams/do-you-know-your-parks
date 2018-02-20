@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Map, TileLayer, Marker } from 'react-leaflet';
 
 class Choice extends Component {
   render() {
@@ -322,9 +321,11 @@ class App extends Component {
   }
 
   render() {
+    var controls;
+
     // display special options for wrong/right
-    if (this.state.state == 'wrong') {
-      var controls = <div id="controls" className="wrong">
+    if (this.state.state === 'wrong') {
+      controls = <div id="controls" className="wrong">
         <div id="instructions">
           {"Oops.  " + this.state.pick + " is actually fake. "}
           <span className="park">{this.correctAnswer.label}</span>
@@ -332,8 +333,8 @@ class App extends Component {
         </div>
       </div>;
 
-    } else if (this.state.state == 'right') {
-      var controls = <div id="controls" className="right">
+    } else if (this.state.state === 'right') {
+      controls = <div id="controls" className="right">
         <div id="instructions">
           {"Yes! "}
           <span className="park">{this.correctAnswer.label}</span>
@@ -344,16 +345,17 @@ class App extends Component {
     } else {
 
       // if it's the end, we display a special message
-      if (this.state.round == 10) {
+      if (this.state.round === 10) {
+        var evaluation;
         if (this.state.correct >= 7) {
-          var evaluation = 'Congratulations!';
+          evaluation = 'Congratulations!';
         } else if (this.state.correct >= 5) {
-          var evaluation = 'Better luck next time.';
+          evaluation = 'Better luck next time.';
         } else {
-          var evaluation = 'Maybe you should go outside.';
+          evaluation = 'Maybe you should go outside.';
         }
 
-        var controls = <div id="controls">
+        controls = <div id="controls">
           <div id="score-intro">You got...</div>
           <div id="score">{this.state.correct + "/10"}</div>
           <div id="score-outro">{evaluation}</div>
@@ -361,7 +363,7 @@ class App extends Component {
 
       } else {
         // otherwise, we pick some options to present to the player
-        
+
         var correctPos = Math.floor(Math.random()*3);
         let choices = [];
 
@@ -369,7 +371,7 @@ class App extends Component {
           var choice;
           var label;
 
-          if (i == correctPos) {
+          if (i === correctPos) {
             choice = Math.floor(Math.random() * this.remainingChoices.real.length);
             label = this.remainingChoices.real[choice].label;
             this.correctAnswer = this.remainingChoices.real[choice];
@@ -383,13 +385,14 @@ class App extends Component {
           choices.push(<Choice callback={this.choice.bind(this)} label={label} key={label} />);
         }
 
-        if (this.state.round == 0 && this.state.round < 10) {
-          var intro = <div className="intro">New York City has a lot of parks. How well do you know them? Using a silly recurrent neural network, I've generated a bunch of fake park names. There are ten rounds, good luck!</div>;
+        var intro;
+        if (this.state.round === 0 && this.state.round < 10) {
+          intro = <div className="intro">New York City has a lot of parks. How well do you know them? Using a silly recurrent neural network, I've generated a bunch of fake park names. There are ten rounds, good luck!</div>;
         } else {
-          var intro = [];
+          intro = [];
         }
 
-        var controls = <div id="controls">
+        controls = <div id="controls">
           <div id="instructions">
             <div className="round">{(this.state.round+1) + "/10"}</div>
             {intro}
@@ -405,11 +408,8 @@ class App extends Component {
     
 
     var parkMarker = [];
-    console.log(this.state.round);
-    console.log(this.state.state);
-    console.log((this.state.state != 'choice' || this.state.round < 10));
-    if (this.state.round > 0 && (this.state.state != 'choice' || this.state.round < 10)) {
-      var parkMarker = <Marker position={[this.state.lat, this.state.lon]} />;
+    if (this.state.round > 0 && (this.state.state !== 'choice' || this.state.round < 10)) {
+      parkMarker = <Marker position={[this.state.lat, this.state.lon]} />;
     }
 
     return (
